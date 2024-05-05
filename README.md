@@ -1,9 +1,9 @@
-# download-file-everywhere
+# universal-file-downloader
 
 [![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT) [![image](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)](https://www.typescriptlang.org/) 
 
 ## Description
-Repository to download file everywhere
+Repository to download file from everywhere
 Working in the browser / nodejs / deno
 
 If you want to use it in node js you need to specify "type" : "module" in your package.json
@@ -13,7 +13,7 @@ If you want to use it in node js you need to specify "type" : "module" in your p
 You can install this package via npm:
 
 ```shell
-npm install download-file-everywhere
+npm install universal-file-downloader
 ```
 
 ## Usage
@@ -22,28 +22,28 @@ npm install download-file-everywhere
 Here is a basic usage example :
 
 ```js
-import dfe from 'download-file-everywhere'
+import dfe from 'universal-file-downloader'
 await new dfe('my_file.extension_file').downloadFile('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4')
 ```
 
 ### Store file in another folder
 If you want to store the file in another folder
 ```js
-import dfe from 'download-file-everywhere'
+import dfe from 'universal-file-downloader'
 await new dfe('my_file.extension_file').downloadFile('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4')
 ```
 
 ### Configure Fetch Param
 Maybe you want the file you request need to be done via POST
 ```js
-import dfe from 'download-file-everywhere'
+import dfe from 'universal-file-downloader'
 await new dfe('my_file.extension_file', { method : 'POST'}).downloadFile('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4')
 ```
 
 ### Using a server proxy
 It's possible that you want to use a server proxy
 ```js
-import dfe from 'download-file-everywhere'
+import dfe from 'universal-file-downloader'
 await new dfe('my_file.extension_file', {}, { url : 'my.server.proxy.com/', headers : {}}).downloadFile('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4')
 ```
 
@@ -55,7 +55,7 @@ Be sure to configure the url as you need
 You have a good network and you want to download big chunk  ?
 Increase it just like that : 
 ```js
-import dfe from 'download-file-everywhere'
+import dfe from 'universal-file-downloader'
 await new dfe('another_folder/my_file.extension_file', {}, {}, 10485760 * 10).downloadFile('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4')
 ```
 
@@ -75,7 +75,7 @@ But If you can't / don't want to use the back-end way, use the following code wh
     <button>Download</button>
 </body>
 <script type="module">
-    import dfe from 'node_modules/download-file-everywhere/dist/index.mjs';
+    import dfe from './node_modules/universal-file-downloader/dist/index.mjs';
     document.querySelector('button').addEventListener('click', async () => {
         const filename = "test.mp4";
         const proxyOptions = {
