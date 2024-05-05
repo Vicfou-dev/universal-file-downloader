@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+</head>
+<body>
+    <button>Download</button>
+</body>
+<script type="module">
+    import dfe from '../dist/index.mjs';
+    document.querySelector('button').addEventListener('click', async () => {
+        const filename = "test.mp4";
+        const proxyOptions = {
+            url : 'http://localhost:8080/',
+            headers : {'X-Requested-With' : 'XMLHttpRequest' }
+        };
+        await new dfe('toto.mp4', {}, proxyOptions).downloadFile('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4');
+    });
+</script>
+</html>
