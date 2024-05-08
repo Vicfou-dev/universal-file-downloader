@@ -1,11 +1,6 @@
 export default class FileSystemInterface {
-    protected stream: any = null;
-
-    public createWriteStream(path: string, size : number) : any {}
-
-    public async writeToStream(data) : Promise<void>{}
-
-    public async closeStream() {
-        this.stream.close();
+    public async saveFile(path: string, data: any) {
+        throw new Error('Method not implemented.');
     }
 }
+

@@ -4,14 +4,12 @@ import FileSystemInterface from "./FileSystem/FileSystemInterface";
 export default class FileDownloader {
     private fetchOptions: RequestInit;
     private proxyOptions: { url: string, headers: HeadersInit};
-    private chunkfileSize: number;
     private fileName: string;
 
-    constructor(fileName?: string, fetchHeaders?: RequestInit, proxyOptions?: any, chunkSize: number = 10485760) {
+    constructor(fileName?: string, fetchHeaders?: RequestInit, proxyOptions?: any) {
         this.fileName = fileName || '';
         this.fetchOptions = fetchHeaders || {};
         this.proxyOptions = proxyOptions || {};
-        this.chunkfileSize = chunkSize;
     }
 
     private getUrl(url: string): string {
@@ -47,39 +45,8 @@ export default class FileDownloader {
             }
         }
 
-        const fileSize = parseInt(response.headers.get('Content-Length'), 10);
-        let start = 0;
-        let end = this.chunkfileSize - 1;
-
         const fileSystem: FileSystemInterface = new FileSystem();
-        await fileSystem.createWriteStream(this.fileName, fileSize);
-
-        while (start < fileSize) {
-            const blob = await this.downloadAndSaveChunk(url, start, Math.min(end, fileSize - 1));
-            start = end + 1;
-            end += this.chunkfileSize;
-            await fileSystem.writeToStream(blob);
-        }
-
-        await fileSystem.closeStream();
-    }
-
-    private async downloadAndSaveChunk(url: string, start: number, end : number) {
-
-        url = this.getUrl(url);
-
-        const options = this.fetchOptions;
-        if(options.headers == undefined){
-            options.headers = {};
-        }
-        options.headers['Range'] = `bytes=${start}-${end}`;
-        const response = await fetch(url, options);
-
-        if (!response.ok) {
-            throw new Error(`An issue occured during the download of the chunk: ${response.statusText}`);
-        }
-        const blob = await response.blob();
-        return blob;
+        await fileSystem.saveFile(this.fileName, response.body);
     }
 
 }

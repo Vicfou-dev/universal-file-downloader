@@ -69,14 +69,6 @@ With the given configuration the url forward will become my.server.proxy.com/htt
 
 Be sure to configure the url as you need
 
-### Download with less request
-You have a good network and you want to download big chunk  ?
-Increase it just like that : 
-```js
-import ufd from 'universal-file-downloader'
-await new ufd('another_folder/my_file.extension_file', {}, {}, 10485760 * 10).downloadFile('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4')
-```
-
 ## Browser
 
 ### Download file from browser
